@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-service
+spec:
+  replicas: 2  # SCALABILITY: Runs 2 instances automatically
+  selector:
+    matchLabels:
+      app: auth-service
+  template:
+    metadata:
+      labels:
+        app: auth-service
+    spec:
+      containers:
+        - name: auth-service
+          image: your-dockerhub-user/auth-service:latest
+          env:
+            - name: DB_HOST
+              value: "postgres-auth-service" # Name of the K8s Service for DB
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: password
+          ports:
+            - containerPort: 8081

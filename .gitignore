@@ -18,3 +18,4 @@ Thumbs.db
 
 # Sensitive Data
 .env
+k8s/secrets.yaml
