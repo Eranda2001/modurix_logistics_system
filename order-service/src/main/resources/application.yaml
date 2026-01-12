@@ -1,19 +1,19 @@
 server:
-  port: 8082
+  port: 8081  # The Order Service will run on this port
 
 spring:
   application:
-    name: auth-service
+    name: order-service
   datasource:
-    # Uses 'localhost' by default, or the env var 'DB_HOST' when in Docker
-    url: jdbc:postgresql://${DB_HOST:localhost}:5432/auth_db
-    username: ${DB_USER:postgres}
-    password: ${DB_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
+    # This URL connects to your 'postgres-order' container on port 5433
+    url: jdbc:postgresql://localhost:5433/order_db
+    username: postgres
+    password: password
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: update # IMPORTANT: This creates the tables for you automatically!
+    show-sql: true     # This lets you see the SQL commands in the console
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
